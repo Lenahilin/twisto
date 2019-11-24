@@ -11,6 +11,9 @@ flask-mysql = "*"
 flask-admin = "*"
 flask-ext = "*"
 flask-sqlalchemy = "*"
+mysql-python = "*"
+mysqlclient = "*"
+cryptography = "*"
 
 [requires]
 python_version = "3.7"
