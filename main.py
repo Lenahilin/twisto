@@ -1,4 +1,4 @@
-from flask import Flask, redirect, abort
+from flask import Flask, redirect, abort, url_for
 from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
 from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required, current_user
@@ -56,13 +56,13 @@ class MyModelView(sqla.ModelView):
 
 admin = flask_admin.Admin(
   app,
-  # 'Example: Auth',
+  'Example: Auth',
   base_template='my_master.html',
   template_mode='bootstrap3',
 )
 
-admin.add_view(MyModelView(Role, db.session))
-admin.add_view(MyModelView(User, db.session))
+# admin.add_view(MyModelView(Role, db.session))
+# admin.add_view(MyModelView(User, db.session))
 
 # define a context processor for merging flask-admin's template context into the
 # flask-security views.
@@ -104,6 +104,8 @@ class Links(db.Model):
   id = db.Column(db.Integer, primary_key=True, unique=True)
   path = db.Column(db.String(45), unique=True)
   dest = db.Column(db.String(300))
+
+admin.add_view(MyModelView(Links, db.session))
 
 @app.route('/')
 def hello_world():
