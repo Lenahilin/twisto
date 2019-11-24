@@ -17,7 +17,6 @@ app.secret_key = os.environ['appsecretkey']
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + os.environ['msqluser'] + ':' + app.config['MYSQL_PASSWORD']+ '@localhost/twisto_db'
-app.config['SQLALCHEMY_DATABASE_URI'] = ''
 
 db = SQLAlchemy(app)
 
@@ -32,8 +31,10 @@ def hello_world():
 
 @app.route('/<some_path>')
 def redirect_to_path(some_path):
-  new_url = 'http://www.google.com/' + some_path
+  new_url = Links.query.filter_by(path=some_path).first().dest # TODO: add protocol prefix validation
+  # print('new url: ', new_url)
   return redirect(new_url, code=301)
+
 
 if __name__ == '__main__':
   admin = Admin(app)
