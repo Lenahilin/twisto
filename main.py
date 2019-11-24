@@ -1,22 +1,18 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, abort
 from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
+from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required, current_user
+from flask_security.utils import encrypt_password
+import flask_admin
+from flask_admin.contrib import sqla
+from flask_admin import helpers as admin_helpers
 from flask_admin.contrib.sqla import ModelView
+
 import os
 
 app = Flask(__name__)
-app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
-
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = os.environ['msqluser']
-app.config['MYSQL_PASSWORD'] = os.environ['msqlpassword']
-app.config['MYSQL_DB'] = 'twisto_db'
-
-app.config['SESSION_TYPE'] = 'filesystem'
 app.secret_key = os.environ['appsecretkey']
-
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://' + os.environ['msqluser'] + ':' + app.config['MYSQL_PASSWORD']+ '@localhost/twisto_db'
+app.config.from_pyfile('config.py')
 
 db = SQLAlchemy(app)
 
@@ -31,13 +27,15 @@ def hello_world():
 
 @app.route('/<some_path>')
 def redirect_to_path(some_path):
-  new_url = Links.query.filter_by(path=some_path).first().dest # TODO: add protocol prefix validation
-  # print('new url: ', new_url)
+  try:
+    new_url = Links.query.filter_by(path=some_path).first().dest
+  except AttributeError:
+    abort(404)
+  if not new_url.startswith('http'):
+    new_url = 'http://' + new_url
   return redirect(new_url, code=301)
-
 
 if __name__ == '__main__':
   admin = Admin(app)
   admin.add_view(ModelView(Links, db.session))
-
   app.run(host = '0.0.0.0', debug=True)
