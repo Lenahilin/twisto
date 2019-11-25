@@ -76,13 +76,6 @@ def security_context_processor():
   )
 
 def build_sample_db():
-  """
-  Populate a small db with some example entries.
-  """
-
-  import string
-  import random
-
   db.create_all()
 
   with app.app_context():
@@ -122,8 +115,5 @@ def redirect_to_path(some_path):
   return redirect(new_url, code=301)
 
 if __name__ == '__main__':
-  # admin = Admin(app)
-  # admin.add_view(ModelView(Links, db.session))
-
   # build_sample_db()
   app.run(host = '0.0.0.0', debug=True)
