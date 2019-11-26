@@ -1,12 +1,10 @@
 from flask import Flask, redirect, abort, url_for
-from flask_admin import Admin
 from flask_sqlalchemy import SQLAlchemy
-from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, login_required, current_user
+from flask_security import Security, SQLAlchemyUserDatastore, UserMixin, RoleMixin, current_user
 from flask_security.utils import encrypt_password
 import flask_admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers as admin_helpers
-from flask_admin.contrib.sqla import ModelView
 
 import os
 
@@ -48,24 +46,17 @@ class MyModelView(sqla.ModelView):
   def _handle_view(self, name, **kwargs):
     if not self.is_accessible():
       if current_user.is_authenticated:
-        # permission denied
         abort(403)
       else:
-        # login
         return redirect(url_for('security.login', next=request.url))
 
 admin = flask_admin.Admin(
   app,
-  'Example: Auth',
+  'Twisto test task',
   base_template='my_master.html',
   template_mode='bootstrap3',
 )
 
-# admin.add_view(MyModelView(Role, db.session))
-# admin.add_view(MyModelView(User, db.session))
-
-# define a context processor for merging flask-admin's template context into the
-# flask-security views.
 @security.context_processor
 def security_context_processor():
   return dict(
