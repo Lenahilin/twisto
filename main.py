@@ -5,7 +5,7 @@ from flask_security.utils import encrypt_password
 import flask_admin
 from flask_admin.contrib import sqla
 from flask_admin import helpers as admin_helpers
-
+from waitress import serve
 import os
 
 app = Flask(__name__)
@@ -92,8 +92,8 @@ class Links(db.Model):
 admin.add_view(MyModelView(Links, db.session))
 
 @app.route('/')
-def hello_world():
-  return 'Hello, World!'
+def send_to_login_page():
+  return redirect(url_for('security.login'))
 
 @app.route('/<some_path>')
 def redirect_to_path(some_path):
@@ -107,4 +107,5 @@ def redirect_to_path(some_path):
 
 if __name__ == '__main__':
   # build_sample_db()
-  app.run(host = '0.0.0.0', debug=True)
+  # app.run(host = '0.0.0.0', debug=True)
+  serve(app, host="0.0.0.0", port=5000)

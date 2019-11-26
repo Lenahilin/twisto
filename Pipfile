@@ -14,6 +14,7 @@ flask-sqlalchemy = "*"
 cryptography = "*"
 flask-basicauth = "*"
 flask-security = "*"
+waitress = "*"
 
 [requires]
 python_version = "3.7"
