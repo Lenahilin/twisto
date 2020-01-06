@@ -18,10 +18,10 @@
     "default": {
         "babel": {
             "hashes": [
-                "sha256:af92e6106cb7c55286b25b38ad7695f8b4efb36a90ba483d7f7a6628c46158ab",
-                "sha256:e86135ae101e31e2c8ec20a4e0c5220f4eed12487d5cf3f78be7e98d3a57fc28"
+                "sha256:1aac2ae2d0d8ea368fa90906567f5c08463d98ade155c0c4bfedd6a0f7160e38",
+                "sha256:d670ea0b10f8b723672d3a6abeb87b565b244da220d76b4dba1b66269ec152d4"
             ],
-            "version": "==2.7.0"
+            "version": "==2.8.0"
         },
         "blinker": {
             "hashes": [
@@ -281,11 +281,11 @@
         },
         "waitress": {
             "hashes": [
-                "sha256:b3b6450106b65bfcbefce5940fff23240305db86683cbf4e524af199b514ba61",
-                "sha256:edbb927a6f7c43d4fde35740786a30c180c1623d70a7ad5fd1d1f4adacc54468"
+                "sha256:67a60a376f0eb335ed88967c42b73983a58d66a2a72eb9009a42725f7453b142",
+                "sha256:cbf1c62fc41393a6f27cb78483f8f6e252630a3598984668244b7bf4e35856f1"
             ],
             "index": "pypi",
-            "version": "==1.4.0"
+            "version": "==1.4.2"
         },
         "werkzeug": {
             "hashes": [
